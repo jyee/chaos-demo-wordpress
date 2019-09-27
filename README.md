@@ -1,4 +1,4 @@
-# Prerequesites
+This is a repo for demoing Chaos engineering using a basic Wordpress install.
 
 ## Setup
 
@@ -10,18 +10,29 @@ brew cask install minikube
 brew install kubernetes-cli
 ```
 
-## Get up and running
-
 Start Minikube.
 
-The `-p` flag will set up a new profile, so this demo will be clean.
-
 ```
+# Start minikube using a new profile
 minikube start -p <conference-name>
-minikube profile <conference-name>
 
-kubectl apply -f wordpress
+# Set the profile as the default
+minikube profile <conference-name>
 ```
+
+Create a Kubernetes secret with your [Datadog API Key](https://app.datadoghq.com/account/settings#api).
+
+```
+kubectl create secret generic datadog-api --from-literal=token=<YOUR_DATADOG_API_KEY>
+```
+
+Apply the YAML files.
+
+```
+kubectl apply -f kubernetes
+```
+
+---
 
 ## Setup Wordpress
 
