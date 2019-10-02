@@ -3,6 +3,9 @@ kind: DaemonSet
 metadata:
   name: datadog-agent
 spec:
+  selector:
+    matchLabels:
+      app: datadog-agent
   template:
     metadata:
       labels:
