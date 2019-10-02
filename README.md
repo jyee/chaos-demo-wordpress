@@ -1,6 +1,6 @@
 This is a repo for demoing Chaos engineering using a basic Wordpress install.
 
-## Setup
+## Setup Kubernetes
 
 Install the necessary software on your Mac.
 
@@ -32,7 +32,9 @@ Apply the YAML files.
 kubectl apply -f kubernetes
 ```
 
----
+Note this may take quite a while to download container images on the first run.
+
+Once the MySQL pod is running, run the `setup.sh` file to create a Datadog user. This will allow Datadog to pull metrics from MySQL.
 
 ## Setup Wordpress
 
@@ -46,26 +48,8 @@ This will take you to a Wordpress setup page where you can create the admin user
 
 If you need to edit the site later, the url will be at /wp-login and you can use the credentials you set on the first visit.
 
-## Setup Datadog Monitoring
+## Setup the
 
-Get a bash shell on the running MySQL pod:
-
-```
-kubectl exec -ti $(kubectl get po --selector=tier=mysql -o jsonpath='{.items[0].metadata.name}') -- /bin/bash
-```
-
-Then run the following to setup the Datadog user and grant it access to collect metrics.
-
-```
-mysql --user=root --password=my-password -e "CREATE USER 'datadog'@'%' IDENTIFIED BY 'mypassword';"
-mysql --user=root --password=my-password -e "GRANT REPLICATION CLIENT ON *.* TO 'datadog'@'%' WITH MAX_USER_CONNECTIONS 5;"
-mysql --user=root --password=my-password -e "GRANT PROCESS ON *.* TO 'datadog'@'%';"
-mysql --user=root --password=my-password -e "GRANT SELECT ON performance_schema.* TO 'datadog'@'%';"
-```
-
-Log out of the MySQL pod and apply the Datadog yaml.
-
-## Before steps
 
 Open the Gist
 https://gist.github.com/jyee/a9c1d74d20ef40ff114fc6a1705780f4
