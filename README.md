@@ -20,10 +20,13 @@ minikube start -p <conference-name>
 minikube profile <conference-name>
 ```
 
-Create a Kubernetes secret with your [Datadog API Key](https://app.datadoghq.com/account/settings#api).
+Create Kubernetes secrets with your [Datadog API Key](https://app.datadoghq.com/account/settings#api) and your [Gremlin team ID, secret](https://app.gremlin.com/settings/team), and cluster name.
 
 ```
-kubectl create secret generic datadog-api --from-literal=token=<YOUR_DATADOG_API_KEY>
+kubectl create secret generic datadog-api --from-literal=dd-api-key=<YOUR_DATADOG_API_KEY>
+kubectl create secret generic gremlin-team-id --from-literal=gremlin-team-id=<YOUR_GREMLIN_TEAM_ID>
+kubectl create secret generic gremlin-team-secret --from-literal=gremlin-team-secret=<YOUR_GREMLIN_TEAM_SECRET>
+kubectl create secret generic gremlin-cluster-id --from-literal=gremlin-cluster-id=<YOUR_GREMLIN_CLUSTER_ID>
 ```
 
 Apply the YAML files.
