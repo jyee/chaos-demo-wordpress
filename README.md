@@ -14,7 +14,8 @@ Start Minikube.
 
 ```
 # Start minikube using a new profile
-minikube start -p <conference-name>
+# Also increase the cpu and memory
+minikube start -p <conference-name> --cpus 4 --memory 8192
 
 # Set the profile as the default
 minikube profile <conference-name>

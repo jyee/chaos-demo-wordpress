@@ -9,7 +9,7 @@ spec:
     - port: 80
   selector:
     app: wordpress
-    tier: frontend
+    tier: wordpress
   type: LoadBalancer
 ---
 apiVersion: v1
@@ -47,21 +47,23 @@ spec:
   selector:
     matchLabels:
       app: wordpress
-      tier: frontend
+      tier: wordpress
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         app: wordpress
-        tier: frontend
+        tier: wordpress
     spec:
       containers:
-      - image: wordpress:4.8-apache
+      - image: wordpress:5.3-apache
         name: wordpress
         env:
         - name: WORDPRESS_DB_HOST
           value: wordpress-mysql
+        - name: WORDPRESS_DB_USER
+          value: root
         - name: WORDPRESS_DB_PASSWORD
           valueFrom:
             secretKeyRef:
