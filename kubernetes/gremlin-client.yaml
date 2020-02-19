@@ -35,17 +35,17 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: gremlin-team-id
-                value: gremlin-team-id
+                key: gremlin-team-id
           - name: GREMLIN_TEAM_SECRET
             valueFrom:
               secretKeyRef:
                 name: gremlin-team-secret
-                value: gremlin-team-secret
+                key: gremlin-team-secret
           - name: GREMLIN_CLUSTER_ID
             valueFrom:
               secretKeyRef:
                 name: gremlin-cluster-id
-                value: gremlin-cluster-id
+                key: gremlin-cluster-id
           - name: GREMLIN_IDENTIFIER
             valueFrom:
               fieldRef:
